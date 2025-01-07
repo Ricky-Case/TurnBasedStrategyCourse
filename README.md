@@ -9,7 +9,7 @@ A Turn-Based Strategy RPG built following along with [this tutorial](https://www
 
 ## Progress Log
 ### Section 1 - Introduction & Setup
-#### 2024/01/06
+#### 2025/01/06
 - Lecture 7 Complete
   - Project created and the initial commit and push completed.
   - Set up a custom layout for Unity and cleaned up unnecessary URP template assets.
@@ -20,4 +20,41 @@ A Turn-Based Strategy RPG built following along with [this tutorial](https://www
   - Renamed <i>SampleScene</i> asset to <i>GameScene</i>.
   - Configured the initial Post-Processing settings.
 
+<b>Section Complete</b>
+<br>
+<br>
+
 ### Section 2 - Unit Movement & Selection
+#### 2025/01/07
+- Lecture 2 Complete
+  - Set up basic unit GameObject.
+- Lecture 3 Complete
+  - Set up basic unit controller script with rudimentary movement.
+- Lecture 4 Complete
+  - Set up rudimentary raycast code for acquiring the cursor's world position every Update.
+- Lecture 5 Complete
+  - Set up code to return the cursor's world position when the user presses or holds the "move" key.
+    - This currently explicitly checks for the mouse left-click.
+    - I will change this to use the Unity Input System later, if the tutorial doesn't cover that.
+- Lecture 8 Complete
+  - Acquired animation assets from the "Slim Shooter Pack" on [Mixamo](www.mixamo.com) and added them to the project.
+- Lecture 9 Complete
+  - Created and assigned an animator controller to the unit object.
+    - Added the idle and run animations to the animator controller.
+  - Added rifle object to unit object.
+    - Edited its position and rotation during the run animation to match with the unit's movement.
+- Lecture 10 Complete
+  - Hooked up the animator controller in code.
+- Lecture 11 Complete
+  - Set up unit rotation when moving.
+- Lecture 12 Complete
+  - Set up UnitActionSystem script to handle unit selection and movement control.
+- Lecture 13 Complete
+  - Added Unit Selection texture to project and implemented it on the Unit prefab.
+- Lecture 14 Complete
+  - Implemented code to ensure that the selection texture is only active on the instance of the Unit prefab which is currently selected.
+
+<b>Section Complete</b>
+<br>
+<br>
+
