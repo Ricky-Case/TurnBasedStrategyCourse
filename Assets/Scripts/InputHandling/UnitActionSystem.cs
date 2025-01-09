@@ -6,18 +6,27 @@ namespace InputHandling
 {
     public class UnitActionSystem : MonoBehaviour
     {
+        // Singleton
+        //*********
+        public static UnitActionSystem Instance { get; private set; }
+        //*********
+        
+        
         [SerializeField] private Unit selectedUnit;
         [SerializeField] private LayerMask unitLayerMask;
-
-        public static UnitActionSystem Instance { get; private set; }
         
         public event EventHandler OnSelectedUnitChanged;
 
+        
+        //*******************************//
+        //**** UNITY EVENT FUNCTIONS ****//
+        //*******************************//
         private void Awake()
         {
             if (Instance != null)
             {
                 Debug.LogError("More than one (1) UnitActionSystem! " + transform + " - " + Instance);
+                Debug.LogWarning("Deleting extraneous instance!");
                 Destroy(gameObject);
                 return;
             }
@@ -36,12 +45,17 @@ namespace InputHandling
             }
         }
 
+        
+        //**************************//
+        //**** HELPER FUNCTIONS ****//
+        //**************************//
+        
         private bool TryHandleUnitSelection()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, unitLayerMask))
             {
-                if (hit.transform.TryGetComponent<Unit>(out Unit unit))
+                if (hit.transform.TryGetComponent(out Unit unit))
                 {
                     SetSelectedUnit(unit);
                     return true;
@@ -51,15 +65,23 @@ namespace InputHandling
             return false;
         }
 
+        
+        //*****************//
+        //**** GETTERS ****//
+        //*****************//
+        
+        public Unit GetSelectedUnit() =>
+            selectedUnit;
+        
+        
+        //*****************//
+        //**** SETTERS ****//
+        //*****************//
+        
         private void SetSelectedUnit(Unit unit)
         {
             selectedUnit = unit;
             OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        public Unit GetSelectedUnit()
-        {
-            return selectedUnit;
         }
     }
 }

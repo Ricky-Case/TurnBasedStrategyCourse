@@ -10,10 +10,11 @@ namespace Characters
         
         private MeshRenderer _meshRenderer;
 
-        private void Awake()
-        {
-            _meshRenderer = GetComponent<MeshRenderer>();
-        }
+        
+        //*******************************//
+        //**** UNITY EVENT FUNCTIONS ****//
+        //*******************************//
+        private void Awake() { _meshRenderer = GetComponent<MeshRenderer>(); }
 
         private void Start()
         {
@@ -21,10 +22,12 @@ namespace Characters
             UpdateVisual();
         }
 
-        private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty)
-        {
-            UpdateVisual();
-        }
+        
+        //**************************//
+        //**** HELPER FUNCTIONS ****//
+        //**************************//
+        
+        private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs empty) { UpdateVisual(); }
 
         private void UpdateVisual()
         {

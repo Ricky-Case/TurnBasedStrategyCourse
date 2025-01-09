@@ -8,11 +8,18 @@ namespace InputHandling
         
         private static MouseWorld _instance;
 
-        private void Awake()
-        {
-            _instance = this;
-        }
+        
+        //*******************************//
+        //**** UNITY EVENT FUNCTIONS ****//
+        //*******************************//
+        
+        private void Awake() { _instance = this; }
 
+        
+        //*****************//
+        //**** GETTERS ****//
+        //*****************//
+        
         public static Vector3 GetPosition()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
