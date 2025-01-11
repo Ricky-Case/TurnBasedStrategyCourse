@@ -45,6 +45,12 @@ namespace Grid
                 Mathf.RoundToInt(worldPosition.x / _cellSize),
                 Mathf.RoundToInt(worldPosition.z / _cellSize)
             );
+        
+        public int GetHeight() =>
+            _height;
+
+        public int GetWidth() =>
+            _width;
 
         public Vector3 GetWorldPosition(GridPosition gridPosition) =>
             new Vector3(gridPosition.X, 0, gridPosition.Z) * _cellSize;
@@ -68,5 +74,8 @@ namespace Grid
                 }
             }
         }
+        
+        public bool IsValidGridPosition(GridPosition gridPosition) =>
+            gridPosition is { X: >= 0, Z: >= 0 } && gridPosition.X < _width && gridPosition.Z < _height;
     }
 }

@@ -85,3 +85,13 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
 <br>
 <br>
 
+### Section 4 - Actions & UI
+#### 2025/01/10
+- Lecture 2 Complete
+  - Moved movement code into its own script.
+#### 2025/01/11
+- Lecture 3 Complete
+  - Added validation to movement, making it impossible to move to any invalid position.
+    - Also ensures that a unit moves only to the center of a given grid position.
+- Lecture 4 Complete
+  - Added visual asset to highlight valid grid positions for unit movement.

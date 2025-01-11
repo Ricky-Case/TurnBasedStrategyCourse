@@ -1,5 +1,6 @@
 using Characters;
 using System;
+using Grid;
 using UnityEngine;
 
 namespace InputHandling
@@ -37,11 +38,16 @@ namespace InputHandling
         private void Update()
         {
             // TODO: Change this to use the Unity Input System instead.
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 if (TryHandleUnitSelection()) { return; }
-                
-                selectedUnit.Move(MouseWorld.GetPosition());
+
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+                if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPosition))
+                {
+                    selectedUnit.GetMoveAction().Move(mouseGridPosition);
+                }
             }
         }
 

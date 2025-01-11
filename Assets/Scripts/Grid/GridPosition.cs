@@ -40,6 +40,12 @@ namespace Grid
         public static bool operator !=(GridPosition gridPositionA, GridPosition gridPositionB) => 
             !(gridPositionA == gridPositionB);
 
+        public static GridPosition operator +(GridPosition gridPositionA, GridPosition gridPositionB) =>
+            new GridPosition(gridPositionA.X + gridPositionB.X, gridPositionA.Z + gridPositionB.Z);
+        
+        public static GridPosition operator -(GridPosition gridPositionA, GridPosition gridPositionB) =>
+            new GridPosition(gridPositionA.X - gridPositionB.X, gridPositionA.Z - gridPositionB.Z);
+
         public override bool Equals(object obj) =>
             obj is GridPosition position && X == position.X && Z == position.Z;
 
