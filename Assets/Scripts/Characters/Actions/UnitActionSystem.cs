@@ -17,6 +17,7 @@ namespace Characters.Actions
         [SerializeField] private LayerMask unitLayerMask;
 
         private bool _isBusy;
+        private BaseAction _selectedAction;
         
         
         // Delegates
@@ -39,30 +40,18 @@ namespace Characters.Actions
             
             Instance = this;
         }
+
+        private void Start()
+        {
+            SetSelectedUnit(selectedUnit);
+        }
         
         private void Update()
         {
             if (_isBusy) { return; }
+            if (TryHandleUnitSelection()) { return; }
             
-            // TODO: Change this to use the Unity Input System instead.
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (TryHandleUnitSelection()) { return; }
-
-                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-
-                if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPosition))
-                {
-                    selectedUnit.GetMoveAction().Move(mouseGridPosition, SetIsBusy);
-                }
-
-                return;
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                selectedUnit.GetSpinAction().Spin(SetIsBusy);
-            }
+            HandleSelectedAction();
         }
 
         
@@ -70,8 +59,33 @@ namespace Characters.Actions
         //**** HELPER FUNCTIONS ****//
         //**************************//
         
+        private void HandleSelectedAction()
+        {
+            // TODO: Change this to use the Unity Input System instead.
+            if (Input.GetMouseButtonDown(0))
+            {
+                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+                
+                switch (_selectedAction)
+                {
+                    case MoveAction moveAction:
+                        if (moveAction.IsValidActionGridPosition(mouseGridPosition))
+                        {
+                            moveAction.Move(mouseGridPosition, SetIsBusy);
+                        }
+                        break;
+                    case SpinAction spinAction:
+                        spinAction.Spin(SetIsBusy);
+                        break;
+                }
+            }
+        }
+        
         private bool TryHandleUnitSelection()
         {
+            // TODO: Change this to use the Unity Input System instead.
+            if (!Input.GetMouseButtonDown(0)) { return false; }
+            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, unitLayerMask))
             {
@@ -100,10 +114,16 @@ namespace Characters.Actions
         
         private void SetIsBusy(bool isBusy) =>
             _isBusy = isBusy;
+
+        public void SetSelectedAction(BaseAction baseAction)
+        {
+            _selectedAction = baseAction;
+        }
         
         private void SetSelectedUnit(Unit unit)
         {
             selectedUnit = unit;
+            _selectedAction = unit.GetMoveAction();
             OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
         }
     }

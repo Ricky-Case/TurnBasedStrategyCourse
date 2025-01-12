@@ -38,7 +38,7 @@ namespace Characters.Actions
             Vector3 moveDirection = (_targetPosition - transform.position).normalized;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, rotateSpeed * Time.deltaTime);
             
-            float stoppingDistance = 0.01f;
+            float stoppingDistance = 0.05f;
             
             if (Vector3.Distance(transform.position, _targetPosition) > stoppingDistance)
             {

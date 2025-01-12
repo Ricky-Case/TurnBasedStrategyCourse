@@ -18,6 +18,11 @@ namespace UI
         public void SetBaseAction(BaseAction baseAction)
         {
             textMeshPro.text = baseAction.GetName().ToUpper();
+
+            button.onClick.AddListener(() => {
+                UnitActionSystem.Instance.SetSelectedAction(baseAction);
+            });
         }
+
     }
 }

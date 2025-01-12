@@ -109,3 +109,5 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
 - Lecture 8 Complete
   - Added a button prefab for actions and a container for them.
   - Added classes to handle behavior of action buttons and their container.
+- Lecture 9 Complete
+  - Refactored to trigger all actions on left click, but only when selected by first pressing the associated button.
