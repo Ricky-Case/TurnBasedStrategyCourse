@@ -1,5 +1,5 @@
 using System;
-using InputHandling;
+using Characters.Actions;
 using UnityEngine;
 
 namespace Characters

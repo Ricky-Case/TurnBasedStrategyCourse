@@ -95,3 +95,15 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
     - Also ensures that a unit moves only to the center of a given grid position.
 - Lecture 4 Complete
   - Added visual asset to highlight valid grid positions for unit movement.
+#### 2025/01/12
+- Lecture 5 Complete
+  - Added new "Actions" namespace
+    - Moved UnitActionSystem.cs into this new namespace and edited other scripts to accomodate the change.
+  - Slightly refactored the Update function of the MoveAction script for added versatility and readability.
+  - Added "SpinAction" class for testing purposes.
+  - Added abstract "BaseAction" class for all actions to inherit from.
+- Lecture 6 Complete
+  - Added delegate to the BaseAction class to ensure only one action can be active at a time.
+- Lecture 7
+  - Set up basic UI Canvas.
+- Lecture 8

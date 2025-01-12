@@ -1,9 +1,9 @@
-using Characters;
+using InputHandling;
 using System;
 using Grid;
 using UnityEngine;
 
-namespace InputHandling
+namespace Characters.Actions
 {
     public class UnitActionSystem : MonoBehaviour
     {
@@ -15,13 +15,18 @@ namespace InputHandling
         
         [SerializeField] private Unit selectedUnit;
         [SerializeField] private LayerMask unitLayerMask;
+
+        private bool _isBusy;
         
+        
+        // Delegates
         public event EventHandler OnSelectedUnitChanged;
 
         
         //*******************************//
         //**** UNITY EVENT FUNCTIONS ****//
         //*******************************//
+        
         private void Awake()
         {
             if (Instance != null)
@@ -37,6 +42,8 @@ namespace InputHandling
         
         private void Update()
         {
+            if (_isBusy) { return; }
+            
             // TODO: Change this to use the Unity Input System instead.
             if (Input.GetMouseButtonDown(0))
             {
@@ -46,8 +53,15 @@ namespace InputHandling
 
                 if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPosition))
                 {
-                    selectedUnit.GetMoveAction().Move(mouseGridPosition);
+                    selectedUnit.GetMoveAction().Move(mouseGridPosition, SetIsBusy);
                 }
+
+                return;
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                selectedUnit.GetSpinAction().Spin(SetIsBusy);
             }
         }
 
@@ -83,6 +97,9 @@ namespace InputHandling
         //*****************//
         //**** SETTERS ****//
         //*****************//
+        
+        private void SetIsBusy(bool isBusy) =>
+            _isBusy = isBusy;
         
         private void SetSelectedUnit(Unit unit)
         {

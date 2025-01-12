@@ -1,5 +1,6 @@
 using Grid;
 using UnityEngine;
+using Characters.Actions;
 
 namespace Characters
 {
@@ -7,6 +8,7 @@ namespace Characters
     {
         private GridPosition _currentGridPosition;
         private MoveAction _moveAction;
+        private SpinAction _spinAction;
 
 
         //*******************************//
@@ -16,6 +18,7 @@ namespace Characters
         private void Awake()
         {
             _moveAction = GetComponent<MoveAction>();
+            _spinAction = GetComponent<SpinAction>();
         }
 
         private void Start()
@@ -43,5 +46,6 @@ namespace Characters
         
         public GridPosition GetGridPosition() => _currentGridPosition;
         public MoveAction GetMoveAction() => _moveAction;
+        public SpinAction GetSpinAction() => _spinAction;
     }
 }

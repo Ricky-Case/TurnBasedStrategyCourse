@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Characters;
-using InputHandling;
+using Characters.Actions;
 using UnityEngine;
 
 namespace Grid

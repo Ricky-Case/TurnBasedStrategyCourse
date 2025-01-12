@@ -1,48 +1,56 @@
+using System;
 using System.Collections.Generic;
 using Grid;
 using UnityEngine;
 
-namespace Characters
+namespace Characters.Actions
 {
-    public class MoveAction : MonoBehaviour
+    public class MoveAction : BaseAction
     {
+        [Header("ANIMATION")]
         [SerializeField] private Animator unitAnimator;
+        
+        private static readonly int AnimMoveID = Animator.StringToHash("Move");
+        
+        
+        [Header("MOVEMENT")]
         [SerializeField] private int maxMoveDistance = 4;
+        [SerializeField] private float moveSpeed = 4.0f;
+        [SerializeField] private float rotateSpeed = 10.0f;
         
         private Vector3 _targetPosition;
-        private Unit _unit;
-        
-        private static readonly int IsWalking = Animator.StringToHash("IsWalking");
         
         
         //*******************************//
         //**** UNITY EVENT FUNCTIONS ****//
         //*******************************//
 
-        private void Awake()
+        protected override void Awake()
         {
-            _unit = GetComponent<Unit>();
+            base.Awake();
             _targetPosition = transform.position;
         }
 
         private void Update()
         {
-            float stoppingDistance = 0.05f;
-            
-            if (Vector3.Distance(transform.position, _targetPosition) <= stoppingDistance)
-            {
-                unitAnimator.SetBool(IsWalking, false);
-                return;
-            }
+            if (!IsActive) { return; }
             
             Vector3 moveDirection = (_targetPosition - transform.position).normalized;
-            float moveSpeed = 4.0f;
-            float rotateSpeed = 10.0f;
-            
-            transform.position += moveDirection * (moveSpeed * Time.deltaTime);
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, rotateSpeed * Time.deltaTime);
             
-            unitAnimator.SetBool(IsWalking, true);
+            float stoppingDistance = 0.01f;
+            
+            if (Vector3.Distance(transform.position, _targetPosition) > stoppingDistance)
+            {
+                transform.position += moveDirection * (moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                IsActive = false;
+                OnActionCompleted(IsActive);
+            }
+            
+            unitAnimator.SetBool(AnimMoveID, IsActive);
         }
         
         
@@ -50,7 +58,13 @@ namespace Characters
         //**** HELPER FUNCTIONS ****//
         //**************************//
 
-        public void Move(GridPosition targetPosition) { _targetPosition = LevelGrid.Instance.GetWorldPosition(targetPosition); }
+        public void Move(GridPosition targetPosition, Action<bool> actionCompletedDelegate)
+        {
+            _targetPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
+            OnActionCompleted = actionCompletedDelegate;
+            IsActive = true;
+            OnActionCompleted(IsActive);
+        }
 
         public bool IsValidActionGridPosition(GridPosition gridPosition) =>
             GetValidActionGridPositionList().Contains(gridPosition);
@@ -62,7 +76,7 @@ namespace Characters
         public List<GridPosition> GetValidActionGridPositionList()
         {
             List<GridPosition> validGridPositionList = new List<GridPosition>();
-            GridPosition unitGridPosition = _unit.GetGridPosition();
+            GridPosition unitGridPosition = Unit.GetGridPosition();
             
             for (int xIndex = -maxMoveDistance; xIndex <= maxMoveDistance; xIndex++)
             {
