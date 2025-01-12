@@ -9,6 +9,7 @@ namespace Characters
         private GridPosition _currentGridPosition;
         private MoveAction _moveAction;
         private SpinAction _spinAction;
+        private BaseAction[] _baseActions; 
 
 
         //*******************************//
@@ -19,6 +20,7 @@ namespace Characters
         {
             _moveAction = GetComponent<MoveAction>();
             _spinAction = GetComponent<SpinAction>();
+            _baseActions = GetComponents<BaseAction>();
         }
 
         private void Start()
@@ -39,13 +41,24 @@ namespace Characters
             LevelGrid.Instance.UnitMovedGridPosition(this, _currentGridPosition, newGridPosition);
             _currentGridPosition = newGridPosition;
         }
-
-        //**************************//
-        //**** HELPER FUNCTIONS ****//
-        //**************************//
         
-        public GridPosition GetGridPosition() => _currentGridPosition;
-        public MoveAction GetMoveAction() => _moveAction;
-        public SpinAction GetSpinAction() => _spinAction;
+        
+        //*****************//
+        //**** GETTERS ****//
+        //*****************//
+        
+        public BaseAction[] GetBaseActions() =>
+            _baseActions;
+        
+        public GridPosition GetGridPosition() =>
+            _currentGridPosition;
+        
+        public MoveAction GetMoveAction() =>
+            _moveAction;
+        
+        public SpinAction GetSpinAction() =>
+            _spinAction;
+        
+        
     }
 }

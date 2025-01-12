@@ -73,6 +73,9 @@ namespace Characters.Actions
         //**** GETTERS ****//
         //*****************//
 
+        public override string GetName() =>
+            "MOVE";
+
         public List<GridPosition> GetValidActionGridPositionList()
         {
             List<GridPosition> validGridPositionList = new List<GridPosition>();

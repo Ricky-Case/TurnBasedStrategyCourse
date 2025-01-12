@@ -104,6 +104,8 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Added abstract "BaseAction" class for all actions to inherit from.
 - Lecture 6 Complete
   - Added delegate to the BaseAction class to ensure only one action can be active at a time.
-- Lecture 7
+- Lecture 7 Complete
   - Set up basic UI Canvas.
-- Lecture 8
+- Lecture 8 Complete
+  - Added a button prefab for actions and a container for them.
+  - Added classes to handle behavior of action buttons and their container.

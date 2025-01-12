@@ -17,5 +17,12 @@ namespace Characters.Actions
         //*******************************//
 
         protected virtual void Awake() { Unit = GetComponent<Unit>(); }
+        
+        
+        //*****************//
+        //**** GETTERS ****//
+        //*****************//
+        
+        public abstract string GetName();
     }
 }

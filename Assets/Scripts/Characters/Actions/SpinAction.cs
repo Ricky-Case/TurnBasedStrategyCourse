@@ -38,5 +38,13 @@ namespace Characters.Actions
             IsActive = true;
             OnActionCompleted(IsActive);
         }
+        
+        
+        //*****************//
+        //**** GETTERS ****//
+        //*****************//
+
+        public override string GetName() =>
+            "SPIN";
     }
 }
