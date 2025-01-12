@@ -58,16 +58,13 @@ namespace Characters.Actions
         //**** HELPER FUNCTIONS ****//
         //**************************//
 
-        public void Move(GridPosition targetPosition, Action<bool> actionCompletedDelegate)
+        public override void TakeAction(GridPosition targetPosition, Action<bool> actionCompletedDelegate)
         {
             _targetPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
             OnActionCompleted = actionCompletedDelegate;
             IsActive = true;
             OnActionCompleted(IsActive);
         }
-
-        public bool IsValidActionGridPosition(GridPosition gridPosition) =>
-            GetValidActionGridPositionList().Contains(gridPosition);
         
         //*****************//
         //**** GETTERS ****//
@@ -76,7 +73,7 @@ namespace Characters.Actions
         public override string GetName() =>
             "MOVE";
 
-        public List<GridPosition> GetValidActionGridPositionList()
+        public override List<GridPosition> CreateValidActionGridPositionList()
         {
             List<GridPosition> validGridPositionList = new List<GridPosition>();
             GridPosition unitGridPosition = Unit.GetGridPosition();

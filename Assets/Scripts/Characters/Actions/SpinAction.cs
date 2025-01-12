@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Grid;
 using UnityEngine;
 
 namespace Characters.Actions
@@ -31,7 +33,14 @@ namespace Characters.Actions
         //**** HELPER FUNCTIONS ****//
         //**************************//
 
-        public void Spin(Action<bool> actionCompletedDelegate)
+        public override List<GridPosition> CreateValidActionGridPositionList()
+        {
+            GridPosition unitGridPosition = Unit.GetGridPosition();
+            
+            return new List<GridPosition> { unitGridPosition };
+        }
+
+        public override void TakeAction(GridPosition gridPosition, Action<bool> actionCompletedDelegate)
         {
             _amountSpun = 0.0f;
             OnActionCompleted = actionCompletedDelegate;

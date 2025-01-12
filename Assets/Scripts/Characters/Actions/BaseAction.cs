@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Grid;
 using UnityEngine;
 
 namespace Characters.Actions
@@ -17,6 +19,18 @@ namespace Characters.Actions
         //*******************************//
 
         protected virtual void Awake() { Unit = GetComponent<Unit>(); }
+        
+        
+        //**************************//
+        //**** HELPER FUNCTIONS ****//
+        //**************************//
+        
+        public abstract List<GridPosition> CreateValidActionGridPositionList();
+        
+        public bool IsValidActionGridPosition(GridPosition gridPosition) =>
+            CreateValidActionGridPositionList().Contains(gridPosition);
+
+        public abstract void TakeAction(GridPosition gridPosition, Action<bool> onActionCompleted);
         
         
         //*****************//

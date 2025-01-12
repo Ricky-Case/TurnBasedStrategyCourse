@@ -2,6 +2,7 @@ using InputHandling;
 using System;
 using Grid;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Characters.Actions
 {
@@ -49,6 +50,7 @@ namespace Characters.Actions
         private void Update()
         {
             if (_isBusy) { return; }
+            if (EventSystem.current.IsPointerOverGameObject()) { return; }
             if (TryHandleUnitSelection()) { return; }
             
             HandleSelectedAction();
@@ -58,29 +60,20 @@ namespace Characters.Actions
         //**************************//
         //**** HELPER FUNCTIONS ****//
         //**************************//
-        
+
         private void HandleSelectedAction()
         {
             // TODO: Change this to use the Unity Input System instead.
-            if (Input.GetMouseButtonDown(0))
+            if (!Input.GetMouseButtonDown(0)) { return; }
+
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+            if (_selectedAction.IsValidActionGridPosition(mouseGridPosition))
             {
-                GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
-                
-                switch (_selectedAction)
-                {
-                    case MoveAction moveAction:
-                        if (moveAction.IsValidActionGridPosition(mouseGridPosition))
-                        {
-                            moveAction.Move(mouseGridPosition, SetIsBusy);
-                        }
-                        break;
-                    case SpinAction spinAction:
-                        spinAction.Spin(SetIsBusy);
-                        break;
-                }
+                _selectedAction.TakeAction(mouseGridPosition, SetIsBusy);
             }
         }
-        
+
         private bool TryHandleUnitSelection()
         {
             // TODO: Change this to use the Unity Input System instead.
@@ -91,6 +84,8 @@ namespace Characters.Actions
             {
                 if (hit.transform.TryGetComponent(out Unit unit))
                 {
+                    if (unit == selectedUnit) { return false; }
+                    
                     SetSelectedUnit(unit);
                     return true;
                 }
@@ -106,6 +101,9 @@ namespace Characters.Actions
         
         public Unit GetSelectedUnit() =>
             selectedUnit;
+        
+        public BaseAction GetSelectedAction() =>
+            _selectedAction;
         
         
         //*****************//
