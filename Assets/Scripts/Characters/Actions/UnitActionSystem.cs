@@ -23,6 +23,8 @@ namespace Characters.Actions
         
         // Delegates
         public event EventHandler OnSelectedUnitChanged;
+        public event EventHandler OnSelectedActionChanged;
+        public event EventHandler<bool> OnBusyChanged;
 
         
         //*******************************//
@@ -109,13 +111,17 @@ namespace Characters.Actions
         //*****************//
         //**** SETTERS ****//
         //*****************//
-        
-        private void SetIsBusy(bool isBusy) =>
+
+        private void SetIsBusy(bool isBusy)
+        {
             _isBusy = isBusy;
+            OnBusyChanged?.Invoke(this, _isBusy);
+        }
 
         public void SetSelectedAction(BaseAction baseAction)
         {
             _selectedAction = baseAction;
+            OnSelectedActionChanged?.Invoke(this, EventArgs.Empty);
         }
         
         private void SetSelectedUnit(Unit unit)

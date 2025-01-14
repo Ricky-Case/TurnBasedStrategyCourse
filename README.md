@@ -113,3 +113,8 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Refactored to trigger all actions on left click, but only when selected by first pressing the associated button.
 - Lecture 10 Complete
   - Added validation to ensure an action can only be triggered by clicking on a valid grid position for that action.
+#### 2025/01/14
+- Lecture 11 Complete
+  - Added UI element to show player which Action is currently selected.
+- Lecture 12 Complete
+  - Added UI element to tell player when an action is currently active.

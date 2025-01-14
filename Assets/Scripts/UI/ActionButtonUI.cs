@@ -9,7 +9,9 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI textMeshPro;
         [SerializeField] private Button button;
-        
+        [SerializeField] private GameObject selectedGameObject;
+
+        private BaseAction _baseAction;
         
         //**************************//
         //**** HELPER FUNCTIONS ****//
@@ -17,11 +19,17 @@ namespace UI
         
         public void SetBaseAction(BaseAction baseAction)
         {
+            _baseAction = baseAction;
             textMeshPro.text = baseAction.GetName().ToUpper();
 
             button.onClick.AddListener(() => {
                 UnitActionSystem.Instance.SetSelectedAction(baseAction);
             });
+        }
+
+        public void UpdateSelectedVisual()
+        {
+            selectedGameObject.SetActive(UnitActionSystem.Instance.GetSelectedAction() == _baseAction);
         }
 
     }
