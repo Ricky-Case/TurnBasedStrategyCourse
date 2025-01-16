@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Characters.Actions;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI
 {
@@ -11,8 +11,10 @@ namespace UI
     {
         [SerializeField] private Transform actionButtonPrefab;
         [SerializeField] private Transform actionButtonContainer;
+        [SerializeField] private TextMeshProUGUI actionPointsText;
 
-        private List<ActionButtonUI> actionButtonUIList;
+        private List<ActionButtonUI> _actionButtonUIList;
+        
         
         //*******************************//
         //**** UNITY EVENT FUNCTIONS ****//
@@ -20,16 +22,20 @@ namespace UI
 
         private void Awake()
         {
-            actionButtonUIList = new List<ActionButtonUI>();
+            _actionButtonUIList = new List<ActionButtonUI>();
         }
         
         private void Start()
         {
             UnitActionSystem.Instance.OnSelectedUnitChanged += UnitActionSystem_OnSelectedUnitChanged;
             UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+            UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
+            TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+            Unit.OnActionPointsChanged += Unit_OnActionPointsChanged;
             
             DrawUnitActionButtons();
             UpdateSelectedVisual();
+            UpdateActionPoints();
         }
         
         
@@ -47,7 +53,7 @@ namespace UI
                 ActionButtonUI actionButtonUI = actionButton.GetComponent<ActionButtonUI>();
                 actionButtonUI.SetBaseAction(baseAction);
                 
-                actionButtonUIList.Add(actionButtonUI);
+                _actionButtonUIList.Add(actionButtonUI);
             }
         }
 
@@ -64,26 +70,52 @@ namespace UI
                 Destroy(actionButton.gameObject);
             }
             
-            actionButtonUIList.Clear();
+            _actionButtonUIList.Clear();
+        }
+
+        private void UpdateActionPoints()
+        {
+            actionPointsText.text = "ACTION POINTS: " + UnitActionSystem.Instance.GetSelectedUnit().GetActionPoints();
+        }
+        
+        private void UpdateSelectedVisual()
+        {
+            foreach (ActionButtonUI actionButtonUI in _actionButtonUIList)
+            {
+                actionButtonUI.UpdateSelectedVisual();
+            }
+        }
+        
+        
+        //*********************************//
+        //**** CUSTOM EVENTS FUNCTIONS ****//
+        //*********************************//
+
+        private void Unit_OnActionPointsChanged(object sender, EventArgs eventArgs)
+        {
+            UpdateActionPoints();
+        }
+        
+        private void UnitActionSystem_OnActionStarted(object sender, EventArgs eventArgs)
+        {
+            UpdateActionPoints();
         }
 
         private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs eventArgs)
         {
             DrawUnitActionButtons();
             UpdateSelectedVisual();
+            UpdateActionPoints();
         }
         
         private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs eventArgs)
         {
             UpdateSelectedVisual();
         }
-        
-        private void UpdateSelectedVisual()
+
+        private void TurnSystem_OnTurnChanged(object sender, EventArgs eventArgs)
         {
-            foreach (ActionButtonUI actionButtonUI in actionButtonUIList)
-            {
-                actionButtonUI.UpdateSelectedVisual();
-            }
+            UpdateActionPoints();
         }
     }
 }

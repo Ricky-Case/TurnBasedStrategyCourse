@@ -22,9 +22,10 @@ namespace Characters.Actions
         
         
         // Delegates
-        public event EventHandler OnSelectedUnitChanged;
-        public event EventHandler OnSelectedActionChanged;
+        public event EventHandler OnActionStarted;
         public event EventHandler<bool> OnBusyChanged;
+        public event EventHandler OnSelectedActionChanged;
+        public event EventHandler OnSelectedUnitChanged;
 
         
         //*******************************//
@@ -70,10 +71,11 @@ namespace Characters.Actions
 
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
-            if (_selectedAction.IsValidActionGridPosition(mouseGridPosition))
-            {
-                _selectedAction.TakeAction(mouseGridPosition, SetIsBusy);
-            }
+            if (!_selectedAction.IsValidActionGridPosition(mouseGridPosition)) { return; }
+            if (!selectedUnit.TryTakeAction(_selectedAction)) { return; }
+
+            _selectedAction.TakeAction(mouseGridPosition, SetIsBusy);
+            OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
 
         private bool TryHandleUnitSelection()

@@ -8,6 +8,7 @@ namespace Characters.Actions
     public class SpinAction : BaseAction
     {
         private float _amountSpun;
+        [SerializeField] [Range(1, 3)] private int cost = BaseCost + 1;
         
         //*******************************//
         //**** UNITY EVENT FUNCTIONS ****//
@@ -55,5 +56,8 @@ namespace Characters.Actions
 
         public override string GetName() =>
             "SPIN";
+
+        public override int GetCost() =>
+            cost;
     }
 }

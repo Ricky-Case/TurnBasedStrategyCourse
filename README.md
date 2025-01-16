@@ -118,3 +118,16 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Added UI element to show player which Action is currently selected.
 - Lecture 12 Complete
   - Added UI element to tell player when an action is currently active.
+#### 2025/01/16
+- Lecture 13 Complete
+  - Set up the action points system to regulate the number of actions a given unit may take in a single turn.
+- Lecture 14 Complete
+  - Set up the turn system.
+    - NOTE: The tutorial calls the UpdateTurnNumberText function in the TurnSystemUI script by listening to the OnTurnChanged event from the TurnSystem script.
+      - I expect that calling the function directly is more efficient, but I may alter this to align with the tutorial if issues later arise.
+
+<b>Section Complete</b>
+<br>
+<br>
+
+### Section 5 - Enemies & Combat

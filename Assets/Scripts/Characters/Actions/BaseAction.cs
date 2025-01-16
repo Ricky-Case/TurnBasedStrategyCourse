@@ -9,6 +9,7 @@ namespace Characters.Actions
     {
         protected Unit Unit;
         protected bool IsActive;
+        protected const int BaseCost = 1;
 
         
         // Delegates
@@ -38,5 +39,8 @@ namespace Characters.Actions
         //*****************//
         
         public abstract string GetName();
+        
+        public virtual int GetCost() =>
+            BaseCost;
     }
 }
