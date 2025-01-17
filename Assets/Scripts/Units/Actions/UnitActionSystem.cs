@@ -4,7 +4,7 @@ using Grid;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Characters.Actions
+namespace Units.Actions
 {
     public class UnitActionSystem : MonoBehaviour
     {
@@ -53,6 +53,7 @@ namespace Characters.Actions
         private void Update()
         {
             if (_isBusy) { return; }
+            if (!TurnSystem.Instance.IsPlayerTurn()) { return; }
             if (EventSystem.current.IsPointerOverGameObject()) { return; }
             if (TryHandleUnitSelection()) { return; }
             
@@ -89,6 +90,7 @@ namespace Characters.Actions
                 if (hit.transform.TryGetComponent(out Unit unit))
                 {
                     if (unit == selectedUnit) { return false; }
+                    if (unit.IsEnemy()) { return false; }
                     
                     SetSelectedUnit(unit);
                     return true;

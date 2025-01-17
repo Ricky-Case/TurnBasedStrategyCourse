@@ -1,9 +1,9 @@
 # Turn Based Strategy Course
 A Turn-Based Strategy video game built following along with [this tutorial](https://www.gamedev.tv/courses/unity-turn-based-strategy).
-- Note: While I am building this project in Unity 6, the lecture videos were all recorded using Unity 2022.
+- Note: While the lecture videos were all recorded using Unity 2022, I have chosen to build this project in Unity 6.
   - I will likely encounter many discrepancies and bugs. These will be noted in the Progress Log, below.
 
-## Requisite Unity Asset Packs
+## Requisite Unity Assets
 ### GameDev.tv
 - Provided Game Assets.
 
@@ -11,8 +11,9 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
 ### Section 1 - Introduction & Setup
 #### 2025/01/06
 - Lecture 7 Complete
-  - Project created and the initial commit and push completed.
-  - Set up a custom layout for Unity and cleaned up unnecessary URP template assets.
+  - Project created.
+  - Initial commit and push completed.
+  - Set up a custom layout for Unity and removed the unnecessary URP template assets.
 - Lecture 8 Complete
   - Configured the URP settings.
   - Imported the provided prototype assets.
@@ -27,9 +28,9 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
 ### Section 2 - Unit Movement & Selection
 #### 2025/01/07
 - Lecture 2 Complete
-  - Set up basic unit GameObject.
-  - Added floor object to scene.
-    - Disconnected instructor's custom nodes from the Synty grid material on floor.
+  - Set up basic <i>Unit</i> GameObject.
+  - Added a floor object to the main scene.
+    - Disconnected instructor's custom nodes from the Synty grid material on the floor.
 - Lecture 3 Complete
   - Set up basic unit controller script with rudimentary movement.
   - Using NAMESPACES for scoping, despite the tutorial not using them.
@@ -40,20 +41,20 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
     - This currently explicitly checks for the mouse left-click.
     - I will change this to use the Unity Input System later, if the tutorial doesn't cover that.
 - Lecture 8 Complete
-  - Acquired animation assets from the "Slim Shooter Pack" on [Mixamo](www.mixamo.com) and added them to the project.
+  - Acquired animation assets from the <i>Slim Shooter Pack</i> on [Mixamo](www.mixamo.com) and added them to the project.
 - Lecture 9 Complete
-  - Created and assigned an animator controller to the unit object.
-    - Added the idle and run animations to the animator controller.
-  - Added rifle object to unit object.
-    - Edited its position and rotation during the run animation to match with the unit's movement.
+  - Created and assigned an animator controller to the <i>Unit</i>> object.
+    - Added the <i>Idle</i> and <i>Run</i> animations to the animator controller.
+  - Added <i>Rifle</i> game object to the <i>Unit</i> game object.
+    - Edited its position and rotation during the <i>Run</i> animation to match with the unit's movement.
 - Lecture 10 Complete
   - Hooked up the animator controller in code.
 - Lecture 11 Complete
-  - Set up unit rotation when moving.
+  - Set up <i>Unit</i> rotation when moving.
 - Lecture 12 Complete
-  - Set up UnitActionSystem script to handle unit selection and movement control.
+  - Set up <i>UnitActionSystem</i> script to handle unit selection and movement control.
 - Lecture 13 Complete
-  - Added Unit Selection texture to project and implemented it on the Unit prefab.
+  - Added Unit Selection texture to project and implemented it on the <i>Unit</i> prefab.
 - Lecture 14 Complete
   - Implemented code to ensure that the selection texture is only active on the instance of the Unit prefab which is currently selected.
 
@@ -73,12 +74,12 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Added code to  display the name of every unit located on each grid position.
   - Did some refactoring and commenting for organization, clarity, and readability.
 - Lecture 7 Complete
-  - Added cinemachine package to project.
-  - Set up initial cinemachine virtual camera.
+  - Added Cinemachine package to project.
+  - Set up initial Cinemachine virtual camera.
 - Lecture 8 Complete
-  - Added movement and rotation functionality to the cinemachine camera.
+  - Added movement and rotation functionality to the Cinemachine camera.
 - Lecture 9 Complete
-  - Added zoom functionality to the cinemachine camera.
+  - Added zoom functionality to the Cinemachine camera.
     - This required some extra effort, as the method described in the tutorial is no longer valid.
 
 <b>Section Complete</b>
@@ -88,7 +89,7 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
 ### Section 4 - Actions & UI
 #### 2025/01/10
 - Lecture 2 Complete
-  - Moved movement code into its own script.
+  - Migrated movement code into its own script.
 #### 2025/01/11
 - Lecture 3 Complete
   - Added validation to movement, making it impossible to move to any invalid position.
@@ -97,13 +98,13 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Added visual asset to highlight valid grid positions for unit movement.
 #### 2025/01/12
 - Lecture 5 Complete
-  - Added new "Actions" namespace
+  - Added new <i>Actions</i> namespace
     - Moved UnitActionSystem.cs into this new namespace and edited other scripts to accomodate the change.
   - Slightly refactored the Update function of the MoveAction script for added versatility and readability.
-  - Added "SpinAction" class for testing purposes.
-  - Added abstract "BaseAction" class for all actions to inherit from.
+  - Added <i>SpinAction</i> class for testing.
+  - Added abstract <i>BaseAction</i> class for all actions to inherit from.
 - Lecture 6 Complete
-  - Added delegate to the BaseAction class to ensure only one action can be active at a time.
+  - Added delegate to the <i>BaseAction</i> class to ensure only one action can be active at a time.
 - Lecture 7 Complete
   - Set up basic UI Canvas.
 - Lecture 8 Complete
@@ -120,10 +121,10 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Added UI element to tell player when an action is currently active.
 #### 2025/01/16
 - Lecture 13 Complete
-  - Set up the action points system to regulate the number of actions a given unit may take in a single turn.
+  - Set up a basic action points system to regulate the number of actions a given unit may take in a single turn.
 - Lecture 14 Complete
   - Set up the turn system.
-    - NOTE: The tutorial calls the UpdateTurnNumberText function in the TurnSystemUI script by listening to the OnTurnChanged event from the TurnSystem script.
+    - NOTE: The tutorial calls the <i>UpdateTurnNumberText</i> function in the TurnSystemUI script by listening to the OnTurnChanged event from the TurnSystem script.
       - I expect that calling the function directly is more efficient, but I may alter this to align with the tutorial if issues later arise.
 
 <b>Section Complete</b>
@@ -131,3 +132,9 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
 <br>
 
 ### Section 5 - Enemies & Combat
+#### 2025/01/17
+- Lecture 2 Complete
+  - Created a <i>Unit<i> Prefab Variant <i>UnitEnemy</i>.
+  - Changed the <i>Characters</i> namespace to <i>Units</i>.
+  - Added logic to allow for enemies to have turns.
+  - Added a visual element to the UI to alert the player when it is an enemy's turn.

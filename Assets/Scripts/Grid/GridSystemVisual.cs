@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Characters;
-using Characters.Actions;
+using Units.Actions;
 using UnityEngine;
 
 namespace Grid

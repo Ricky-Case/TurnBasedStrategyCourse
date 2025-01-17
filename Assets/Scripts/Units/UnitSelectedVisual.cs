@@ -1,8 +1,8 @@
 using System;
-using Characters.Actions;
+using Units.Actions;
 using UnityEngine;
 
-namespace Characters
+namespace Units
 {
     public class UnitSelectedVisual : MonoBehaviour
     {

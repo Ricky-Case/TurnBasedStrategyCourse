@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Characters;
+using Units;
 
 namespace Grid
 {

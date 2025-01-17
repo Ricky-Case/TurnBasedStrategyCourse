@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Characters
+namespace Units
 {
     public class TurnSystem : MonoBehaviour
     {
@@ -12,6 +12,7 @@ namespace Characters
         
         
         private int _turnNumber = 1;
+        private bool _isPlayerTurn = true;
         
         
         // Delegates
@@ -43,6 +44,8 @@ namespace Characters
         public void EndTurn()
         {
             _turnNumber++;
+            _isPlayerTurn = !_isPlayerTurn;
+            
             OnTurnChanged?.Invoke(this, EventArgs.Empty);
         }
         
@@ -53,5 +56,8 @@ namespace Characters
         
         public int GetTurnNumber() =>
             _turnNumber;
+        
+        public bool IsPlayerTurn() =>
+            _isPlayerTurn;
     }
 }

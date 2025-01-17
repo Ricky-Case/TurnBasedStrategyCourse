@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Grid;
 using UnityEngine;
 
-namespace Characters.Actions
+namespace Units.Actions
 {
     public class SpinAction : BaseAction
     {

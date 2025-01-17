@@ -1,12 +1,14 @@
 using System;
 using Grid;
 using UnityEngine;
-using Characters.Actions;
+using Units.Actions;
 
-namespace Characters
+namespace Units
 {
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private bool isEnemy;
+        
         private const int ActionPointsMax = 2;
         
         private GridPosition _currentGridPosition;
@@ -73,18 +75,17 @@ namespace Characters
         
         public int GetActionPoints() =>
             _actionPoints;
-        
         public BaseAction[] GetBaseActions() =>
             _baseActions;
-        
         public GridPosition GetGridPosition() =>
             _currentGridPosition;
-        
         public MoveAction GetMoveAction() =>
             _moveAction;
-        
         public SpinAction GetSpinAction() =>
             _spinAction;
+        
+        public bool IsEnemy() =>
+            isEnemy;
         
         
         //*****************//
@@ -104,7 +105,13 @@ namespace Characters
 
         private void TurnSystem_OnTurnChanged(object sender, EventArgs eventArgs)
         {
-            SetActionPoints(ActionPointsMax);
+            bool isPlayerTurn = TurnSystem.Instance.IsPlayerTurn();
+
+            if ((isEnemy && !isPlayerTurn) || (!isEnemy && isPlayerTurn))
+            {
+                SetActionPoints(ActionPointsMax);                
+            }
+
         }
     }
 }
