@@ -1,3 +1,4 @@
+using StringLibrary;
 using UnityEngine;
 
 namespace InputHandling
@@ -22,8 +23,19 @@ namespace InputHandling
         
         public static Vector3 GetPosition()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, _instance.mousePlaneLayerMask);
+            Camera mainCamera = Camera.main;
+            
+            if (!mainCamera)
+            {
+                Debug.Log(Errors.NoMainCamera);
+                return Vector3.zero;
+            }
+            
+            Physics.Raycast(
+                mainCamera.ScreenPointToRay(Input.mousePosition),
+                out RaycastHit hit,
+                float.MaxValue,
+                _instance.mousePlaneLayerMask);
 
             return hit.point;
         }

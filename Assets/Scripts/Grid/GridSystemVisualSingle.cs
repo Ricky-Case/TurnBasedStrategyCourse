@@ -1,19 +1,29 @@
 using UnityEngine;
 
-public class GridSystemVisualSingle : MonoBehaviour
+namespace Grid
 {
-    [SerializeField] private MeshRenderer meshRenderer;
-
-
-    private void Awake()
+    public class GridSystemVisualSingle : MonoBehaviour
     {
-        meshRenderer.enabled = false;
+        [SerializeField] private MeshRenderer meshRenderer;
+
+
+        private void Awake()
+        {
+            meshRenderer.enabled = false;
+        }
+
+        //**************************//
+        //**** HELPER FUNCTIONS ****//
+        //**************************//
+
+        public void Show()
+        {
+            meshRenderer.enabled = true;
+        }
+
+        public void Hide()
+        {
+            meshRenderer.enabled = false;
+        }
     }
-    
-    //**************************//
-    //**** HELPER FUNCTIONS ****//
-    //**************************//
-    
-    public void Show() { meshRenderer.enabled = true; }
-    public void Hide() { meshRenderer.enabled = false; }
 }

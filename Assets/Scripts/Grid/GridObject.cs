@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StringLibrary;
 using Units;
 
 namespace Grid
@@ -6,9 +7,9 @@ namespace Grid
     public class GridObject
     {
         private GridSystem _gridSystem;
-        private GridPosition _gridPosition;
+        private readonly GridPosition _gridPosition;
 
-        private List<Unit> _unitList;
+        private readonly List<Unit> _unitList;
         
         
         //**********************//
@@ -39,6 +40,9 @@ namespace Grid
         
         public List<Unit> GetUnitList() =>
             _unitList;
+
+        public Unit GetUnit() =>
+            HasAnyUnit() ? _unitList[0] : null;
         
         
         //*****************//
@@ -54,11 +58,11 @@ namespace Grid
         
         public override string ToString()
         {
-            string unitString = "";
+            string unitID = GeneralStrings.Empty;
             
-            foreach (Unit unit in _unitList) { unitString += unit.ToString() + "\n"; }
+            foreach (Unit unit in _unitList) { unitID += unit + GeneralStrings.LineEnd; }
             
-            return (_gridPosition.ToString() + "\n" + unitString);
+            return (_gridPosition.ToString() + GeneralStrings.LineEnd + unitID);
         }
     }
 }

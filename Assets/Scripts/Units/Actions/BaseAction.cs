@@ -13,7 +13,7 @@ namespace Units.Actions
 
         
         // Delegates
-        protected Action<bool> OnActionCompleted;
+        private Action<bool> _onActionCompleted;
         
         //*******************************//
         //**** UNITY EVENT FUNCTIONS ****//
@@ -25,13 +25,30 @@ namespace Units.Actions
         //**************************//
         //**** HELPER FUNCTIONS ****//
         //**************************//
+
+        protected void ActionCompleted()
+        {
+            IsActive = false;
+            _onActionCompleted(IsActive);
+            _onActionCompleted?.Invoke(IsActive);
+        }
+
+        private void ActionStarted(Action<bool> onActionCompleted)
+        {
+            _onActionCompleted = onActionCompleted;
+            IsActive = true;
+            _onActionCompleted(IsActive);
+        }
         
-        public abstract List<GridPosition> CreateValidActionGridPositionList();
+        protected abstract List<GridPosition> CreateValidActionGridPositionList();
         
         public bool IsValidActionGridPosition(GridPosition gridPosition) =>
             CreateValidActionGridPositionList().Contains(gridPosition);
 
-        public abstract void TakeAction(GridPosition gridPosition, Action<bool> onActionCompleted);
+        public virtual void TakeAction(GridPosition gridPosition, Action<bool> onActionCompleted)
+        {
+            ActionStarted(onActionCompleted);
+        }
         
         
         //*****************//
@@ -42,5 +59,8 @@ namespace Units.Actions
         
         public virtual int GetCost() =>
             BaseCost;
+
+        public virtual List<GridPosition> GetValidActionGridPositionList() =>
+            CreateValidActionGridPositionList();
     }
 }

@@ -1,3 +1,4 @@
+using StringLibrary;
 using Units;
 using TMPro;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace UI
             enemyTurnVisual.SetActive(isEnemyTurn);
         }
         
-        private void UpdateTurnNumberText(int turnNumber) { turnNumberText.text = "TURN " + turnNumber; }
+        private void UpdateTurnNumberText(int turnNumber) { turnNumberText.text = UIStrings.TurnLabel + turnNumber; }
         
         // Commented out and replaced with the CheckForEnemyTurn function to reduce redundency.
         // Keeping in case I need to change back.

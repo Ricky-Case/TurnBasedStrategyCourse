@@ -2,23 +2,23 @@ using System;
 using System.Collections.Generic;
 using Grid;
 using UnityEngine;
+using StringLibrary;
 
-namespace Units.Actions
+namespace Units.Actions.Movement
 {
     public class MoveAction : BaseAction
     {
-        [Header("ANIMATION")]
-        [SerializeField] private Animator unitAnimator;
-        
-        private static readonly int AnimMoveID = Animator.StringToHash("Move");
-        
-        
-        [Header("MOVEMENT")]
+        [Header(EditorLabels.Movement)]
+        [SerializeField] [Range(BaseCost, BaseCost + 5)] private int cost = BaseCost;
         [SerializeField] private int maxMoveDistance = 4;
         [SerializeField] private float moveSpeed = 4.0f;
         [SerializeField] private float rotateSpeed = 10.0f;
         
         private Vector3 _targetPosition;
+        
+        // Delegates...
+        public event EventHandler OnStartMoving;
+        public event EventHandler OnStopMoving;
         
         
         //*******************************//
@@ -46,34 +46,17 @@ namespace Units.Actions
             }
             else
             {
-                IsActive = false;
-                OnActionCompleted(IsActive);
+                OnStopMoving?.Invoke(this, EventArgs.Empty);
+                ActionCompleted();
             }
-            
-            unitAnimator.SetBool(AnimMoveID, IsActive);
         }
         
         
         //**************************//
         //**** HELPER FUNCTIONS ****//
         //**************************//
-
-        public override void TakeAction(GridPosition targetPosition, Action<bool> actionCompletedDelegate)
-        {
-            _targetPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
-            OnActionCompleted = actionCompletedDelegate;
-            IsActive = true;
-            OnActionCompleted(IsActive);
-        }
         
-        //*****************//
-        //**** GETTERS ****//
-        //*****************//
-
-        public override string GetName() =>
-            "MOVE";
-
-        public override List<GridPosition> CreateValidActionGridPositionList()
+        protected override List<GridPosition> CreateValidActionGridPositionList()
         {
             List<GridPosition> validGridPositionList = new List<GridPosition>();
             GridPosition unitGridPosition = Unit.GetGridPosition();
@@ -90,7 +73,7 @@ namespace Units.Actions
                     // If unit is already at grid position...
                     if (unitGridPosition == testGridPosition) { continue; }
                     // If grid position already contains another unit...
-                    if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) { continue; }
+                    if (LevelGrid.Instance.HasAnyUnitAtGridPosition(testGridPosition)) { continue; }
                     
                     validGridPositionList.Add(testGridPosition);
                 }
@@ -98,5 +81,22 @@ namespace Units.Actions
 
             return validGridPositionList;
         }
+
+        public override void TakeAction(GridPosition targetPosition, Action<bool> onActionCompleted)
+        {
+            base.TakeAction(targetPosition, onActionCompleted);
+            _targetPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
+            OnStartMoving?.Invoke(this, EventArgs.Empty);
+        }
+        
+        //*****************//
+        //**** GETTERS ****//
+        //*****************//
+
+        public override string GetName() =>
+            ActionNames.Move;
+
+        public override int GetCost() =>
+            cost;
     }
 }

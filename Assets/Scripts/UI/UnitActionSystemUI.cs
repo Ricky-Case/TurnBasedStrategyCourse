@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using StringLibrary;
 using Units;
 using Units.Actions;
 using TMPro;
@@ -75,7 +76,8 @@ namespace UI
 
         private void UpdateActionPoints()
         {
-            actionPointsText.text = "ACTION POINTS: " + UnitActionSystem.Instance.GetSelectedUnit().GetActionPoints();
+            actionPointsText.text = UIStrings.ActionPointsLabel +
+                                    UnitActionSystem.Instance.GetSelectedUnit().GetActionPoints();
         }
         
         private void UpdateSelectedVisual()

@@ -138,3 +138,16 @@ A Turn-Based Strategy video game built following along with [this tutorial](http
   - Changed the <i>Characters</i> namespace to <i>Units</i>.
   - Added logic to allow for enemies to have turns.
   - Added a visual element to the UI to alert the player when it is an enemy's turn.
+#### 2025/01/19
+- Lecture 3 Complete
+  - Created an abstract <i>AttackAction</i> class, inheriting from the <i>BaseAction</i> class.
+    - This will serve as the base class for any attack actions.
+  - Created a <i>ShootAction</i> class, inheriting from the <i>AttackAction</i> class, to handle shooting logic.
+  - Refactored the action classes to inherit more of their shared behaviors.
+#### 2025/01/20
+- Lecture 4 Complete
+  - Renamed <i>AttackAction</i> class to <i>BaseAttackAction</i> for clarity.
+  - Created the <i>StringLibrary</i> namespace to store string constants.
+    - Rewrote string declarations to retrieve values from the <i>StringLibrary</i> namespace instead.
+  - Created <i>UnitAnimator</i> script to drive <i>Unit</i> animation and moved animation-related code to it.
+    - Added events to signal when animations should be triggered in the <i>MoveAction</i> and <i>ShootAction</i>.

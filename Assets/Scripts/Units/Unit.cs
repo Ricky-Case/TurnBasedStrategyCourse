@@ -1,7 +1,9 @@
 using System;
 using Grid;
+using StringLibrary;
 using UnityEngine;
 using Units.Actions;
+using Units.Actions.Movement;
 
 namespace Units
 {
@@ -96,6 +98,11 @@ namespace Units
         {
             _actionPoints = Mathf.Clamp(amount, 0, ActionPointsMax);
             OnActionPointsChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Debug.Log(transform + GeneralStrings.Space + damage + Alerts.DamageTaken);
         }
         
         

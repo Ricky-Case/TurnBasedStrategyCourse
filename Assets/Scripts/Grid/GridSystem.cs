@@ -4,11 +4,11 @@ namespace Grid
 {
     public class GridSystem
     {
-        private float _cellSize;
-        private int _height;
-        private int _width;
+        private readonly float _cellSize;
+        private readonly int _height;
+        private readonly int _width;
         
-        private GridObject[,] _gridObjects;
+        private readonly GridObject[,] _gridObjects;
         
         
         //**********************//
@@ -18,7 +18,7 @@ namespace Grid
         public GridSystem(int width, int height, float cellSize)
         {
             _cellSize = cellSize;
-            _height = height;   // TODO: Change to "length" once tutorial is complete.
+            _height = height;   // TODO: Change to "_length" once tutorial is complete.
             _width = width;
             
             _gridObjects = new GridObject[_width, _height];

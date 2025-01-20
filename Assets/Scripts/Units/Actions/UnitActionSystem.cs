@@ -1,6 +1,7 @@
 using InputHandling;
 using System;
 using Grid;
+using StringLibrary;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,7 @@ namespace Units.Actions
 
         private bool _isBusy;
         private BaseAction _selectedAction;
+        private Camera _mainCamera;
         
         
         // Delegates
@@ -36,8 +38,8 @@ namespace Units.Actions
         {
             if (Instance != null)
             {
-                Debug.LogError("More than one (1) UnitActionSystem! " + transform + " - " + Instance);
-                Debug.LogWarning("Deleting extraneous instance!");
+                Debug.LogError(Errors.InstanceExists + transform + GeneralStrings.Dash + Instance);
+                Debug.LogWarning(Warnings.DeletingExtraInstance);
                 Destroy(gameObject);
                 return;
             }
@@ -47,6 +49,7 @@ namespace Units.Actions
 
         private void Start()
         {
+            _mainCamera = Camera.main;
             SetSelectedUnit(selectedUnit);
         }
         
@@ -83,21 +86,20 @@ namespace Units.Actions
         {
             // TODO: Change this to use the Unity Input System instead.
             if (!Input.GetMouseButtonDown(0)) { return false; }
-            
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, unitLayerMask))
-            {
-                if (hit.transform.TryGetComponent(out Unit unit))
-                {
-                    if (unit == selectedUnit) { return false; }
-                    if (unit.IsEnemy()) { return false; }
-                    
-                    SetSelectedUnit(unit);
-                    return true;
-                }
-            }
 
-            return false;
+            if (!Physics.Raycast(
+                    _mainCamera.ScreenPointToRay(Input.mousePosition),
+                    out RaycastHit hit,
+                    float.MaxValue,
+                    unitLayerMask))
+            { return false; }
+
+            if (!hit.transform.TryGetComponent(out Unit unit)) { return false; }
+            if (unit == selectedUnit) { return false; }
+            if (unit.IsEnemy()) { return false; }
+                    
+            SetSelectedUnit(unit);
+            return true;
         }
 
         

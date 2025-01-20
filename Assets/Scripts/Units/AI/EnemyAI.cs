@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 namespace Units.AI
 {
     public class EnemyAI : MonoBehaviour
     {
-        private float _timer = 0.0f;
+        private float _timer;
         
         
         //*******************************//

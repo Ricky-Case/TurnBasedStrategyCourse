@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StringLibrary;
 using Units;
 using UnityEngine;
 
@@ -25,8 +26,8 @@ namespace Grid
         {
             if (Instance != null)
             {
-                Debug.LogError("More than one (1) LevelGrid! " + transform + " - " + Instance);
-                Debug.LogWarning("Deleting extraneous instance!");
+                Debug.LogError(Errors.InstanceExists + transform + GeneralStrings.Dash + Instance);
+                Debug.LogWarning(Warnings.DeletingExtraInstance);
                 Destroy(gameObject);
                 return;
             }
@@ -42,7 +43,13 @@ namespace Grid
         //**** HELPER FUNCTIONS ****//
         //**************************//
         
-        public bool HasAnyUnitOnGridPosition(GridPosition gridPosition)
+        public Unit GetUnitAtGridPosition(GridPosition gridPosition)
+        {
+            GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
+            return gridObject.GetUnit();
+        }
+        
+        public bool HasAnyUnitAtGridPosition(GridPosition gridPosition)
         {
             GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
             return gridObject.HasAnyUnit();
@@ -88,8 +95,8 @@ namespace Grid
             GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
             gridObject.AddUnit(unit);
         }
-        
-        public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
+
+        private void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
         {
             // TODO: Save memory by not temporarily storing the gridObject.
             GridObject gridObject = _gridSystem.GetGridObject(gridPosition);

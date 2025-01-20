@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StringLibrary;
 using Units.Actions;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Grid
     {
         // Singleton
         //*********
-        public static GridSystemVisual Instance { get; private set; }
+        private static GridSystemVisual Instance { get; set; }
         //*********
         
         
@@ -25,8 +26,8 @@ namespace Grid
         {
             if (Instance != null)
             {
-                Debug.LogError("More than one (1) GridSystemVisual! " + transform + " - " + Instance);
-                Debug.LogWarning("Deleting extraneous instance!");
+                Debug.LogError(Errors.InstanceExists + transform + GeneralStrings.Dash + Instance);
+                Debug.LogWarning(Warnings.DeletingExtraInstance);
                 Destroy(gameObject);
                 return;
             }
@@ -89,7 +90,7 @@ namespace Grid
             HideAllGridPositions();
             
             BaseAction selectedAction = UnitActionSystem.Instance.GetSelectedAction();
-            ShowGridPositionList(selectedAction.CreateValidActionGridPositionList());
+            ShowGridPositionList(selectedAction.GetValidActionGridPositionList());
         }
     }
 }

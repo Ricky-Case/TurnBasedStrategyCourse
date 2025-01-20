@@ -2,10 +2,10 @@ using System;
 
 namespace Grid
 {
-    public struct GridPosition : IEquatable<GridPosition>
+    public readonly struct GridPosition : IEquatable<GridPosition>
     {
-        public int X;
-        public int Z;
+        public readonly int X;
+        public readonly int Z;
 
         
         //**************************//

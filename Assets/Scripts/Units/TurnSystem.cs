@@ -1,4 +1,5 @@
 using System;
+using StringLibrary;
 using UnityEngine;
 
 namespace Units
@@ -27,8 +28,8 @@ namespace Units
         {
             if (Instance != null)
             {
-                Debug.LogError("More than one (1) TurnSystem! " + transform + " - " + Instance);
-                Debug.LogWarning("Deleting extraneous instance!");
+                Debug.LogError(Errors.InstanceExists + transform + GeneralStrings.Dash + Instance);
+                Debug.LogWarning(Warnings.DeletingExtraInstance);
                 Destroy(gameObject);
                 return;
             }

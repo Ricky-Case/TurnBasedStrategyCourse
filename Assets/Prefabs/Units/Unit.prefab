@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 6493191059253515821}
   - component: {fileID: 2791112189241165175}
   - component: {fileID: 6992138681273135304}
+  - component: {fileID: 8597332986925085502}
+  - component: {fileID: 3489348719808144395}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -170,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae309de2aab26f4fb3a2babaeb3f58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemy: 0
 --- !u!114 &2791112189241165175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitAnimator: {fileID: 4651820280111131368}
+  cost: 1
   maxMoveDistance: 4
+  moveSpeed: 4
+  rotateSpeed: 10
 --- !u!114 &6992138681273135304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +202,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cf2d4e328e50784792c574de2e91284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cost: 2
+--- !u!114 &8597332986925085502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623521798577486967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8a1662d0a2e7148be24a0e24201b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAttackDistance: 4
+  attackTime: 0.1
+  cooldownTime: 0.5
+  prepareTime: 1
+  rotateSpeed: 10
+  cost: 1
+--- !u!114 &3489348719808144395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3623521798577486967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b982d8ad3bb53cd4db744aa80cae6ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4651820280111131368}
 --- !u!1001 &105346093556195045
 PrefabInstance:
   m_ObjectHideFlags: 0

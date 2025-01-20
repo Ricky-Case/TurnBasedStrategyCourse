@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using Grid;
+using StringLibrary;
 using UnityEngine;
 
-namespace Units.Actions
+namespace Units.Actions.Movement
 {
     public class SpinAction : BaseAction
     {
+        [SerializeField] [Range(BaseCost, BaseCost + 5)] private int cost = BaseCost;
+        
         private float _amountSpun;
-        [SerializeField] [Range(1, 3)] private int cost = BaseCost + 1;
+        
         
         //*******************************//
         //**** UNITY EVENT FUNCTIONS ****//
@@ -25,8 +28,7 @@ namespace Units.Actions
 
             if (_amountSpun < spinAmount) { return; }
             
-            IsActive = false;
-            OnActionCompleted(IsActive);
+            ActionCompleted();
         }
         
         
@@ -34,19 +36,17 @@ namespace Units.Actions
         //**** HELPER FUNCTIONS ****//
         //**************************//
 
-        public override List<GridPosition> CreateValidActionGridPositionList()
+        protected override List<GridPosition> CreateValidActionGridPositionList()
         {
             GridPosition unitGridPosition = Unit.GetGridPosition();
             
             return new List<GridPosition> { unitGridPosition };
         }
 
-        public override void TakeAction(GridPosition gridPosition, Action<bool> actionCompletedDelegate)
+        public override void TakeAction(GridPosition targetPosition, Action<bool> onActionCompleted)
         {
+            base.TakeAction(targetPosition, onActionCompleted);
             _amountSpun = 0.0f;
-            OnActionCompleted = actionCompletedDelegate;
-            IsActive = true;
-            OnActionCompleted(IsActive);
         }
         
         
@@ -55,7 +55,7 @@ namespace Units.Actions
         //*****************//
 
         public override string GetName() =>
-            "SPIN";
+            ActionNames.Spin;
 
         public override int GetCost() =>
             cost;
